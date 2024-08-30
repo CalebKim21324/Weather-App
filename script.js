@@ -5,6 +5,7 @@ const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
 const error404 = document.querySelector('.not-found');
 const inputField = document.querySelector('.search-box input');
+const countryImageContainer = document.getElementById('countryImageContainer');
 
 const weatherAPIKey = '27d681204defde289080a061d8596ef2';
 const unsplashAccessKey = 't03ELBLjw-3dKxIShVcPdxmJtcwfqv79iuw6Olu1Ksk'; // Replace with your Unsplash Access Key
@@ -79,7 +80,8 @@ function fetchWeather(city) {
             weatherDetails.style.display = '';
             weatherBox.classList.add('fadeIn');
             weatherDetails.classList.add('fadeIn');
-            container.style.height = '590px';
+            container.style.height = '600px';
+            container.style.boxShadow = '10px 10px 5px 2px rgba(0, 0, 0, 0.3)';
         });
 }
 
@@ -91,6 +93,7 @@ function fetchCountryImage(country) {
             if (data.results && data.results.length > 0) {
                 const imageUrl = data.results[0].urls.regular;
                 displayCountryImage(imageUrl);
+                displayName(country);
             } else {
                 displayMessage('No images found for the given country.');
             }
@@ -102,29 +105,42 @@ function fetchCountryImage(country) {
 }
 
 function displayCountryImage(imageUrl) {
-    const countryImageContainer = document.getElementById('countryImageContainer');
-    if (!countryImageContainer) {
-        const newImageContainer = document.createElement('div');
-        newImageContainer.id = 'countryImageContainer';
-        newImageContainer.style.marginTop = '20px';
-        container.appendChild(newImageContainer);
-    } else {
-        countryImageContainer.innerHTML = `<img src="${imageUrl}" alt="Country Image" style="max-width: 100%;">`;
-    }
+    countryImageContainer.innerHTML = `<img src="${imageUrl}" alt="Country Image" style="max-height: 600px; border-radius: 18px;">`;
+    countryImageContainer.style.height = '600px';
+    countryImageContainer.style.borderRight ='10px';
+    countryImageContainer.style.opacity = '0.80';
+    countryImageContainer.style.borderRadius = '18px';
+    countryImageContainer.style.overflow = 'hidden';  // Ensures that the image respects the container's border-radius
+    countryImageContainer.style.boxShadow = '10px 10px 5px 2px rgba(0, 0, 0, 0.3)';
 }
 
 function displayMessage(message) {
-    const countryImageContainer = document.getElementById('countryImageContainer');
-    if (!countryImageContainer) {
-        const newImageContainer = document.createElement('div');
-        newImageContainer.id = 'countryImageContainer';
-        newImageContainer.style.marginTop = '20px';
-        newImageContainer.innerHTML = `<p>${message}</p>`;
-        container.appendChild(newImageContainer);
-    } else {
-        countryImageContainer.innerHTML = `<p>${message}</p>`;
-    }
+    countryImageContainer.innerHTML = `<p>${message}</p>`;
 }
+
+function displayName(name) {
+    // Ensure the container has position: relative for absolute positioning to work inside it
+    countryImageContainer.style.position = 'relative';
+
+    // Add the name at the bottom right of the container with absolute positioning
+    countryImageContainer.innerHTML += `
+        <p style="
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            margin: 0;
+            padding: 5px 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 24px;
+            border-radius: 8px;
+            text-transform: capitalize;
+        ">
+            ${name}
+        </p>
+    `;
+}
+
 
 // Event listeners
 search.addEventListener('click', handleSearch);

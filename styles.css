@@ -12,7 +12,7 @@ body{
     align-items: center;
     justify-content: left;
     padding-left: 50px;
-    background: #06283D;
+    background: #E8DCCA;
 }
 
 .container{
@@ -177,6 +177,15 @@ body{
 .fadeIn{
     animation: 0.5s fadeIn forwards;
     animation-delay: 0.5s;
+}
+
+.country-image-container{
+    margin-left: 30px;
+    border-radius: 18px;
+    font-size: 50px;
+    font-family: 'Poppins';
+    font-weight: bold;
+    transition: 0.6s ease-out;
 }
 
 @keyframes fadeIn{
