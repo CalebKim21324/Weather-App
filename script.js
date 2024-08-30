@@ -1,4 +1,3 @@
-// Variables 
 const container = document.querySelector('.container');
 const search = document.querySelector('.search-box button');
 const weatherBox = document.querySelector('.weather-box');
@@ -122,7 +121,6 @@ function displayName(name) {
     // Ensure the container has position: relative for absolute positioning to work inside it
     countryImageContainer.style.position = 'relative';
 
-    // Add the name at the bottom right of the container with absolute positioning
     countryImageContainer.innerHTML += `
         <p style="
             position: absolute;
@@ -140,7 +138,6 @@ function displayName(name) {
         </p>
     `;
 }
-
 
 // Event listeners
 search.addEventListener('click', handleSearch);
